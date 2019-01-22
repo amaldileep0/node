@@ -1,19 +1,19 @@
 var loginValidation = require('../validations/login');
 
-exports.index = function(req, res) {
+exports.index = (req, res) => {
     res.render('account/dashboard', {
         title: 'Dashboard',
         layout: 'layouts/layout_master'
     });
 };
-exports.login = function(req, res) {
+exports.login = (req, res) => {
     res.render('account/login', {
         title: 'Login',
         layout: 'layouts/layout_login',
         messages: req.flash()
     });
 };
-exports.getRules = function(req, res, next) {
+exports.getRules = (req, res, next) => {
     let validation;
 	let page = req.params.page;
 	if(page === 'login'){
@@ -23,4 +23,7 @@ exports.getRules = function(req, res, next) {
 		error: false,
 		data: validation
 	})
+};
+exports.forgotPassword = (req, res, next) => {
+    res.send('This feature is not implemented')
 };

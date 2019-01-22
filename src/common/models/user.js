@@ -1,5 +1,5 @@
-
-module.exports.authenticate = function (username,password,done,app) {
+var app = require('../../../src/app');
+exports.authenticate = function (username,password,done) {
     const bcrypt = require('bcrypt');
     var User = app.locals.User;
     // search for attributes
@@ -21,12 +21,21 @@ module.exports.authenticate = function (username,password,done,app) {
       })
   })  
 }
-module.exports.serializeUser = function (user, done) {
+exports.serializeUser = function (user, done) {
     done(null, user.id);
 }
-module.exports.deserializeUser = function (id, done, app) {
+exports.deserializeUser = function (id, done) {
     var User = app.locals.User;
     User.findOne({where: {id: id}}).then(function (user, err) {
         done(err, user);
+    })
+}
+exports.getUsers = ()=> {
+    var User = app.locals.User;
+    User.findAll().then(function(users,err){
+        if (err) {
+            return null;
+        }
+        return (JSON.stringify(users))
     })
 }

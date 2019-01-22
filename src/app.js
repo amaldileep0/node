@@ -2,7 +2,7 @@
 var express = require('express');
 // gets the middleware for path
 var path = require('path'); 
-var app = express();
+var app = module.exports = express();
 //Create cookieParser middleware for the application.
 var cookieParser = require('cookie-parser')
 //Create a session middleware with the given options.
@@ -62,12 +62,12 @@ passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
     },(username, password, done) => {
-      User.authenticate(username, password, done, app)
+      User.authenticate(username, password, done)
   })
 );
 
 passport.serializeUser((user, done) => { User.serializeUser(user, done)});
-passport.deserializeUser((id, done) => {User.deserializeUser(id, done, app)});
+passport.deserializeUser((id, done) => {User.deserializeUser(id, done)});
 
 app.set('layout extractScripts', true);
 app.set('layout extractStyles', true);
