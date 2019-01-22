@@ -1,0 +1,76 @@
+.mantadatory {
+	color:red;
+}
+.popbox {
+	overflow-y: auto !important;
+}
+.content {
+	min-height: 500px !important;
+}
+
+.alert-success{
+	width: 95% !important;
+}
+
+.alert-danger{
+	width: 95% !important;
+}
+
+.right-nav{
+	float: right !important;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.outer-div{
+	overflow: auto !important;
+	width:100%;
+}
+
+.table-outer{
+	min-width: 100% !important;  
+	width: auto !important;
+}
+
+.menu-style{
+	margin-top: 70px;
+}
+@media screen 
+and (min-width : 768px) 
+and (max-width : 805px) 
+ {
+	.menu-style {
+	  margin-top: 180px !important;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 1050px) {
+	.menu-style {
+	  margin-top: 115px;
+	}
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) {
+	.menu-style {
+	  margin-top: 180px;
+	}
+}
+
+.settings-label{
+	margin-top: 7px;
+}
+
+.content-border{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+

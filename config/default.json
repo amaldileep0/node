@@ -1,0 +1,15 @@
+{
+    "db": {
+        "name": "bookshop",
+        "host": "localhost",
+        "port": "3306",
+        "user": "root",
+        "password": "pass"
+    },
+    "public": "../public",
+    "secretKey": "kuttichathan",
+    "pageSize": 50,
+    "isProduction": false,
+    "socketPort": 8001,
+    "testEnv": true
+}

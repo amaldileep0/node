@@ -1,0 +1,72 @@
+<%- contentFor('header') %>
+<%- contentFor('body') %>
+<div class="container">
+    <form class="form-signin" id="login-form" action="/login" method="post">
+        <p class="inlinerow text-center"><img class="w130" src="/static/images/logo2_dark.png"/></p>
+        <p class="inlinerow Mtop10"><strong>Email Address</strong></p>
+        <p><input type="text"  class="form-control" placeholder="Email" id="email" name="email" maxlength="50"></p>
+        <p><strong>Password</strong></p>
+        <p><input type="password" class="form-control" placeholder="Password" id="password" name="password" maxlength="25" minlength="8"></p>
+        <div class="inlinerow Mtop15" id="alert-box" style="display:none">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <!-- <strong>Warning!</strong> The following seem to be incorrect data. Please check and try again. -->
+                <ul class="error-msg"></ul>
+            </div>
+        </div>
+        <button id="login" class="btn btn-lg btn-primary btn-block" type="submit" title="Sign in">Sign in</button>
+        <p class="text-center Mtop20 Mbot0">
+            <a href="/forgotPassword" class="forgotpass">Forgot Password ?</a>
+        </p>
+    </form>
+</div>
+<%
+if(messages) {
+%>
+<input type="hidden" value="<%= messages['error'] %>" id="errors"></div>
+<% } %>
+
+<script type="text/javascript">
+    var authError = $("#errors").val();
+    if(authError){
+        error_msgs = ""
+        $('#email').addClass('errorfield');
+        $('#password').addClass('errorfield');
+        error_msgs += "<li>"+authError+"</li>";
+        displayError(error_msgs);
+    }
+
+    function loginErrorMessage(errors)
+    {
+        $(".error-msg").html('');
+        var errorDict = {};
+        var error_msgs = "";
+        if (errors != "" && errors != undefined && errors != null) {
+            $.each(errors, function (index, value) {
+                $.each(value, function (index1, value1) {
+                    fieldName = index1;
+                    messages = value1;
+                    messageList = [];
+                    $.each(messages, function (index2, value2) {
+                        value2 = value2.split(":")[1];
+                        messageList.push(value2);
+                    });
+                    errorDict[fieldName] = messageList;
+                    fieldName = 'password';
+                });
+            });
+            $.each(errorDict, function (field, msg) {
+                $('#' + field).addClass('errorfield');
+                error_msgs += "<li>"+msg+"</li>";
+            });
+            displayError(error_msgs);
+        }
+    }
+
+    function displayError(error_msgs){
+        $('#alert-box').css('display', 'block');
+        $(".error-msg").append(error_msgs);
+        $("#email").focus();
+        //showError();
+    }
+</script>
