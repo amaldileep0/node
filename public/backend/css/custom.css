@@ -1,25 +1,100 @@
-.mantadatory {
-	color:red;
-}
-.popbox {
-	overflow-y: auto !important;
-}
-.content {
-	min-height: 500px !important;
+/* Error message style */
+.error-padding{
+	padding-left: 10px;
+    padding-right: 13px;
 }
 
-.alert-success{
-	width: 95% !important;
+.title-heading {
+	width:100%;
+	display:block;
+	float:left;
+	font-size:18px;
+	color:#333;
+	margin-top:30px;
+	font-family: 'montserratsemibold';
 }
 
-.alert-danger{
-	width: 95% !important;
+.sub-content {
+    font-size: 18px;
+    text-align: justify;
+    color:#fff;
+    margin: 0px 0px 20px 0px;
 }
 
+.title-text {
+	width:100%;
+	display:block;
+	float:left;
+	font-size:18px;
+	color:#fff;
+	margin-top:30px;
+	font-family: 'montserratsemibold';
+}
 .right-nav{
 	float: right !important;
 }
 
+.save-button{
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border: 0px;
+	outline: 0px;
+	color: #FFF;
+	background: #3ab5ff;
+}
+
+.cancel-button{
+	border-radius: 25px;
+	-webkit-border-radius: 25px;
+	-moz-border-radius: 25px;
+	border: 0px;
+	outline: 0px;
+	color: #FFF;
+	background:grey;
+}
+
+.save-button:hover{
+	background:#30a8f0;
+	color:#FFF !important;
+	text-decoration:none;
+	outline: none;
+
+}
+.save-button:focus{
+	background:#30a8f0;
+	color:#FFF !important;
+	text-decoration:none;
+	outline: none;
+
+}
+
+.save-button:visited{
+	background:#30a8f0;
+	color:#FFF !important;
+	text-decoration:none;
+	border:none !important;
+	outline: none;
+}
+
+.save-button:active{
+	background:#30a8f0;
+	color:#FFF !important;
+	text-decoration:none ;
+	border:none !important;
+	outline: none;
+}
+
+.cancel-button:hover, .cancel-button:visited, .cancel-button:active{
+	background:#585c5f;
+	color:#FFF;
+	text-decoration:none;
+	border:none;
+	outline: none;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus{
+	outline: none;
+}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -29,48 +104,27 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
-.outer-div{
-	overflow: auto !important;
-	width:100%;
+.margin-p{
+	margin: 0px;
 }
 
-.table-outer{
-	min-width: 100% !important;  
-	width: auto !important;
+input::-webkit-input-placeholder {
+	color: #888;
 }
 
-.menu-style{
-	margin-top: 70px;
-}
-@media screen 
-and (min-width : 768px) 
-and (max-width : 805px) 
- {
-	.menu-style {
-	  margin-top: 180px !important;
-	}
-}
-@media screen and (min-width: 768px) and (max-width: 1050px) {
-	.menu-style {
-	  margin-top: 115px;
-	}
+.overdue-tasks .checkin-sublink{
+	color: red;
 }
 
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : portrait) {
-	.menu-style {
-	  margin-top: 180px;
-	}
+.risk-zone-slider .ui-slider {
+	background: #dadcda;
 }
 
-.settings-label{
-	margin-top: 7px;
-}
+.modal { overflow: auto !important; }
 
-.content-border{
-	margin-top: 10px;
-	margin-bottom: 10px;
+.left-space .icheckbox_square-blue {
+	margin-left: 10px;
 }
-
+.bottom-padding {
+	padding-bottom: 35px;
+}

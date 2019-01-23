@@ -10,19 +10,12 @@
     <link rel="icon" href="/static/images/favicon.png"/>
 
     <title>BookShop  | <%- title %></title>
-
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.css" rel="stylesheet">
-
+    <link href="/static/css/datatables.min.css" rel="stylesheet">
     <!-- Custom styles-->
     <link href="/static/css/core.css" rel="stylesheet">
     <link href="/static/css/custom.css" rel="stylesheet">
-    <!-- DataTables -->
-    <link rel="stylesheet" type="text/css" href="/static/css/datatables.min.css"/>
-
-    <!-- Datepicker -->
-    <link href="/static/css/bootstrap-datepicker.min.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.min.js"></script>
@@ -44,34 +37,30 @@
           <a class="navbar-brand" href="#"><img src="/static/images/logo2_light.png"/></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li id="menu-home"><a href="/index">Home</a></li>
-            <li id="menu-users"><a href="/users">User</a></li>
-          </ul>
-          <ul class="nav navbar-nav right-nav">
-            <li id="logged-name"></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-
+            <ul class="nav navbar-nav right-nav">
+                <li id="logged-name"></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
-    <div class="container-fluid menu-style" >
-      <div class="row row-offcanvas row-offcanvas-right content">
-        <div class="col-xs-12 col-sm-9">
-          <p class="pull-right visible-xs">
-            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
-          </p>
-          <%- body %>
+    <!-- Begin page content -->
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-7 col-sm-3 col-md-2 sidebar sidebar-left sidebar-animate sidebar-md-show">
+          <ul class="nav navbar-stacked main-nav Mtop10">                 
+            <li id="menu-home"><a href="/index">Home</a></li>
+            <li id="menu-user"><a href="/users">User</a></li>
+          </ul>
         </div>
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          <!-- <div class="list-group">
-            <a id="link-count" href="#" class="list-group-item active">Count</a>
-          </div> -->
-        </div><!--/.sidebar-offcanvas-->
-      </div><!--/row-->
-    </div><!--/.container-->
+        <!-- Content -->
+        <div class="main col-md-10 col-sm-12 col-md-offset-2 contentop">
+            <div class="inlinerow relative"> 
+                <%- body %>
+            </div>
+        </div>
+      </div>
+  </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -80,8 +69,7 @@
     <script src="/static/js/offcanvas.js"></script>
     <script src="/static/js/validations.js" type="text/javascript"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.11.1/validate.min.js"></script>
-    <script type="text/javascript" src="/static/js/datatables.min.js"></script>
-    <script src="/static/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="/static/js/datatables.min.js" type="text/javascript"></script>
     <script src="/static/js/common.js" type="text/javascript"></script>
     <script>
         $(document).ready(function(){

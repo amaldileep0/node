@@ -87,4 +87,20 @@ app.use('/', commonRoutes);
   res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
   next();
 });*/
+
+// Handle 404
+app.use(function(req, res) {
+  res.status(404);
+  res.render('error/404', {title: '404: File Not Found',layout: 'layouts/layout_errors'});
+  // res.redirect('/400');
+});
+// app.use(function(error, req, res, next) {
+//   if(error.name == 'UnauthorizedError'){
+//     res.status(401).json({
+//       error: "Your session has been expired."
+//     })
+//   } else {
+//     res.render('error/500', {title:'500: Internal Server Error', error: error, layout: 'layouts/layout_errors'});
+//   }
+// });
 module.exports = app;

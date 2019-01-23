@@ -30,12 +30,12 @@ exports.deserializeUser = function (id, done) {
         done(err, user);
     })
 }
-exports.getUsers = ()=> {
+exports.getUsers = (callback)=> {
     var User = app.locals.User;
     User.findAll().then(function(users,err){
         if (err) {
-            return null;
+            callback(false);
         }
-        return (JSON.stringify(users))
+        callback(users);
     })
 }
