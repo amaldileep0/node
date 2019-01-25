@@ -6,6 +6,15 @@
             <div class="inlinerow Mtop15"><h3 class="pageheads">Users</h3></div>
             <div class="row">
                     <div class="inlinerow Mtop30">
+                            <% if(messages && messages.success) { %>
+                                <div class="alert alert-success">
+                                    <%- messages.success %>
+                                </div>
+                            <% } else if(messages && messages.error) { %>
+                                <div class="alert alert-danger">
+                                        <%- messages.error %>
+                                </div>
+                            <% } %>
                         <div class="table-responsive">
                             <table id="user-list" class="table table-striped" style="width:100%">
                                 <thead>
@@ -13,8 +22,10 @@
                                         <th class="text-left">User Id</th>
                                         <th class="text-center">First Name</th>
                                         <th class="text-center">Last Name</th>
+                                        <th class="no-sort text-center">Email</th>
                                         <th class="no-sort text-center">Mobile No</th>
                                         <th class="text-center">Created At</th>
+                                        <th class="text-center">Updated At</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -25,9 +36,11 @@
                                                 <td class="text-left"><%= data[each].id %></td>
                                                 <td class="text-center"><%= (data[each].first_name) ? data[each].first_name  : '--' %></td>
                                                 <td class="text-center"><%= (data[each].last_name) ? data[each].last_name : '--' %></td>
+                                                <td class="text-center"><%= (data[each].emailid) ? data[each].emailid : '--' %></td>
                                                 <td class="text-center"><%= (data[each].mobile_no) ? data[each].mobile_no : '--' %></td>
-                                                <td class="text-center"><%= (data[each].created_at) ? data[each].created_at : '--' %></td>
-                                                <td class="text-center"><a href="" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal">Edit</a></td>
+                                                <td class="text-center"><%= (data[each].created_at) ? data[each].created_at.toDateString() : '--' %></td>
+                                                <td class="text-center"><%= (data[each].updated_at) ? data[each].updated_at.toDateString() : 'Not Available' %></td>
+                                                <td class="text-center"><button type="button" data-user-id = "<%= data[each].id %>" class="btn btn-primary btn-xs edit-user">Edit</button></td>
                                             </tr>
                                     <% } } %>
                                 </tbody>
@@ -39,43 +52,24 @@
         </div>
 </div><!--/.container-->
  <!-- Modal -->
- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Edit Data</h4>
+              <h4 class="modal-title" id="myModalLabel">Edit User Data</h4>
             </div>
-            <div class="modal-body popbox">            
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>
-                  <p><strong>Label</strong></p>
-                  <p><input type="text" class="form-control"/></p>           
+            <div class="modal-body popbox">
+                <form id="user-update-form" method="post" action="/user/editUser">
+                    <div id="edit-user-modal-body"><!--Content loaded dynamically--></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary user-update-btn">Save changes</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
-        </div>
-      </div>
-<script>
-$(document).ready(function() {
-    $('#user-list').DataTable({'searching' : false,
-    columnDefs: [{  "targets": 'no-sort',
-          "orderable": false }
-]});
-} );
-</script>
+</div>
+</div>
+<script src="/static/js/user.ui.js" type="text/javascript"></script>

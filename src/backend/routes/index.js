@@ -29,6 +29,17 @@ router.get('/failure',(req, res, next) => {
 });
 
 router.get('/index',authMiddleware.isAuthenticated , accountController.index);
-router.get('/users',authMiddleware.isAuthenticated, userController.listUsers)
+router.get('/users',authMiddleware.isAuthenticated, userController.listUsers);
+router.get('/user/getUserDataForUpdate',authMiddleware.isAuthenticated, (req, res, next) => {
+    var isAjaxRequest = req.xhr;
+    if(isAjaxRequest) {
+        userController.ajaxGetUserDataForUpdate(req, res, next)
+    } else {
+        res.status(400).send('Bad Request');
+    }
+});
+router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) =>{
+    userController.updateUser(req,res,next);
+})
 
 module.exports = router

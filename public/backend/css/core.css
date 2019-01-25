@@ -149,10 +149,10 @@ to {
 /* Login */
 
 .loginbg {
-	background:#0A4E19 url(../images/login-bg.jpg) no-repeat top center;
+	background:#0A4E19
 }
 .loginbginner {
-	background:#1d1803 url(../images/login-bg-2.jpg) no-repeat top center;
+	background:#1d1803
 }
 
 .inlinerow {
@@ -1021,7 +1021,7 @@ select.list1 option {
 .modal-header {
 	padding: 15px;
 	border-bottom: 1px solid #e5e5e5;
-	background: #3ab5ff;
+	background: #7746e9;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
 	-webkit-border-top-left-radius: 6px;

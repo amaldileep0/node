@@ -22,12 +22,11 @@ function getRules () {
   )
 
   var trimmedRoute = trimRoute(route)
-
 	switch (trimmedRoute) {
     case '/login':
       page = 'login'
 			formId = '#login-form'
-			break
+      break
 		default:
 			break
   }
@@ -119,7 +118,7 @@ function showErrorMessages (errors) {
 	switch (trimmedRoute) {
 		case '/login':
       loginErrorMessage(errors);
-			break
+      break
 		default:
 			break
   }
