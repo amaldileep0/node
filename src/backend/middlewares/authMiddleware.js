@@ -3,10 +3,8 @@ module.exports.isAuthenticated = function checkAccess(req, res, next){
 	if (req.user){
 		next();
 	} else {
-		let errorMsg = '<div class="alert alert-danger" id="divError">'+
-		'<span id="msgError">Session Expired! Click <a href="/login" > here </a>'+
-		'to login again</span></div>'
-		res.send(errorMsg)
+		res.status(440);
+		res.render('error/440', {title: 'Invalid Session',layout: 'layouts/layout_errors'});
 	}
 }
 module.exports.canManage = function(req, res, next, page, callback){

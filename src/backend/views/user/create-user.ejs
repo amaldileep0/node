@@ -1,0 +1,43 @@
+<!-- Tabs Box -->
+<div class="col-md-12 col-sm-12 col-xs-12"> 
+    <div class="inlinerow Mtop15"><h3 class="pageheads">Create User</h3></div>   
+    <form id="user-create-form" method="post" action="/user/createUser">       	
+            <div class="inlinerow Mtop20"><!-- row -->   
+                <div class="row">	                                 
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="profile-label">First Name <span class="mandatory">*</span></div>
+                        <div class="profile-value"><input type="text" name="first_name" id="first_name" class="form-control"/></div>
+                        <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="first_name_error" style="display:none"></div></div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="profile-label">Last Name  <span class="mandatory">*</span></div>
+                        <div class="profile-value"><input type="text" name="last_name" id="last_name" class="form-control"/></div>
+                        <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="last_name_error" style="display:none"></div></div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <div class="profile-label">Email<span class="mandatory">*</span></div>
+                        <div class="profile-value"><input type="text" name="emailid" id="emailid" class="form-control"/></div>
+                        <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="emailid_error" style="display:none"></div></div>
+                    </div>
+                </div>
+                <div class="row Mtop20">	                                 
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                            <div class="profile-label">Mobile No <span class="mandatory">*</span></div>
+                            <div class="profile-value"><input type="text" name="mobile_no" id="mobile_no" class="form-control"/></div>
+                            <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="mobile_no_error" style="display:none"></div></div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="profile-label">Password <span class="mandatory">*</span></div>
+                                <div class="profile-value"><input type="password" name="password" id="password" class="form-control"/></div>
+                                <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="password_error" style="display:none"></div></div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-6">
+                                <div class="profile-label">&nbsp</div>
+                                <div class="profile-value"><button type="submit" class="btn btn-success">Save</button></div>
+                        </div>
+                </div>
+            </div>
+    </form>
+</div>
+<script src="/static/js/user.ui.js" type="text/javascript"></script>
+<!-- /.Tabs Box -->

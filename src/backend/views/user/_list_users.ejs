@@ -4,6 +4,7 @@
         <div class="row row-offcanvas row-offcanvas-right">
             <div class="col-md-12 col-sm-12 col-xs-12"> 
             <div class="inlinerow Mtop15"><h3 class="pageheads">Users</h3></div>
+            <a href="/user/createUser" class="btn btn-success">Create User</a>
             <div class="row">
                     <div class="inlinerow Mtop30">
                             <% if(messages && messages.success) { %>
@@ -26,12 +27,14 @@
                                         <th class="no-sort text-center">Mobile No</th>
                                         <th class="text-center">Created At</th>
                                         <th class="text-center">Updated At</th>
+                                        <th class="text-center no-sort">Activate/Deactivate</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <% if(data) { 
                                         for(each in data) { %>
+            
                                             <tr>
                                                 <td class="text-left"><%= data[each].id %></td>
                                                 <td class="text-center"><%= (data[each].first_name) ? data[each].first_name  : '--' %></td>
@@ -40,7 +43,16 @@
                                                 <td class="text-center"><%= (data[each].mobile_no) ? data[each].mobile_no : '--' %></td>
                                                 <td class="text-center"><%= (data[each].created_at) ? data[each].created_at.toDateString() : '--' %></td>
                                                 <td class="text-center"><%= (data[each].updated_at) ? data[each].updated_at.toDateString() : 'Not Available' %></td>
-                                                <td class="text-center"><button type="button" data-user-id = "<%= data[each].id %>" class="btn btn-primary btn-xs edit-user">Edit</button></td>
+                                                <td class="text-center">
+                                                        <label class="switch">
+                                                            <input type="checkbox" data-user-id = "<%= data[each].id %>" "<% if(data[each].status == 1) { %> checked <% } %>">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" data-user-id = "<%= data[each].id %>" class="btn btn-primary btn-xs edit-user">Edit</button>
+                                                    <button type="button" data-user-id = "<%= data[each].id %>" class="delete-user btn btn-danger btn-xs">Delete</button>
+                                                </td>
                                             </tr>
                                     <% } } %>
                                 </tbody>
@@ -73,3 +85,30 @@
 </div>
 </div>
 <script src="/static/js/user.ui.js" type="text/javascript"></script>
+<script>
+    $(document).on('click', '.switch>input' ,function() {
+        var userId = $(this).attr('data-user-id')
+        if($(this).prop("checked") == true) {
+            updateUserStatus(userId,'true')
+        } else if($(this).prop("checked") == false) {
+            updateUserStatus(userId,'false')
+        }
+	});
+
+	function updateUserStatus(userId, checked){
+		$.ajax({
+			type: "POST",
+			data: { id: userId, status: checked },
+			url: "/user/toogleUser",
+			cache: false,
+		}).done(function(res){
+            if (typeof (res) !== 'undefined' && res.status === 'success') {
+                bootbox.alert("Successfully updated user status")
+            } else if (typeof (res) !== 'undefined' && res.status === 'error') {
+                bootbox.alert("We'r sorry unable to process your request right now.")
+            }
+		}).fail(function(jqXHR, textStatus, error) {
+            bootbox.alert("We'r sorry unable to process your request right now.")
+		})
+	}
+</script>

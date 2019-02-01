@@ -1,9 +1,26 @@
-/* *
--- =================================================================================
--- Author       :  Digitalmesh
--- Create date  :  Jan-24-2018
--- Description  :  Get user details function on master page
--- =================================================================================
-*/
 
-/* on ready */
+function modalLoading (title, message) {
+    var a = bootbox.dialog({
+        title: title,
+        message: message,
+        closeButton: false,
+        onEscape: function()
+        {
+            return false;
+        }
+    });
+    return {
+        hide: function()
+        {
+            $(a).modal('hide');
+        },
+        setTitle: function(text)
+        {
+            $(a).find('.modal-title').html(text);
+        },
+        setMessage: function(text)
+        {
+            $(a).find('.modal-body').html(text);
+        }
+    }
+}

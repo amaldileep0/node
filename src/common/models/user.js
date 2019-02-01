@@ -1,5 +1,7 @@
 var app = require('../../../src/app');
 var dateTime = require('node-datetime');
+//Gets config middleware for the application.
+var config = require('config');
 
 exports.authenticate = function (username,password,done) {
     const bcrypt = require('bcrypt');
@@ -85,6 +87,77 @@ exports.updateUser = (req,callback) => {
             callback(false);
         })
     }
+}
+exports.deleteUser = (id,callback) => {
+    var User = app.locals.User;
+    User.findOne({ where: {id: id} }).then(user => {
+        if(user) {
+           callback(user.destroy())
+        } else {
+            callback(false)
+        }
+    }).catch(err => {
+        if (err) {
+            callback(false);
+        }
+    })
+}
+exports.saveUser = (req,callback) => {
+    var User = app.locals.User;
+    var bcrypt = require('bcrypt');
+    var emailid = req.body.emailid;
+    var first_name = req.body.first_name;
+    var password = req.body.password;
+    var last_name = req.body.last_name;
+    var mobile_no = req.body.mobile_no;
+
+    var bcryptdata = config.get('bcrypt');
+	bcrypt.hash(password, bcryptdata.saltRound, function (err, hash) {
+        if (err) {
+            callback(false)
+        }
+        var dt = dateTime.create();
+        var formatted = dt.format('Y-m-d H:M:S');
+        User.build(
+            {  
+                emailid: emailid,
+                first_name: first_name,
+                last_name :last_name,
+                mobile_no: mobile_no,
+                created_at:formatted,
+                password: hash
+            }).save().then(user => {
+                if(user) {
+                    callback(true)
+                }
+            }).catch(error => {
+                if(error) {
+                    callback(false)
+                }
+            })
+    })
+}
+exports.actOrDeactUser = (req,callback) =>{
+    var User = app.locals.User;
+    var id = req.body.id;
+    var status = req.body.status;
+    console.log(status)
+    if(!id) {
+        res.status(400).send("We'r sorry required parameter missing.")
+    }
+    User.update({
+		status: (status == 'true') ? 1 : 0,
+	},
+	{
+		where:{
+			id: id
+		}
+	}).then( result => {
+		callback(true)
+	}).catch(error => {
+		callback(false)
+	})
+
 }
 
 

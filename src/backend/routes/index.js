@@ -38,8 +38,19 @@ router.get('/user/getUserDataForUpdate',authMiddleware.isAuthenticated, (req, re
         res.status(400).send('Bad Request');
     }
 });
-router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) =>{
+router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.updateUser(req,res,next);
 })
-
+router.post('/user/deleteUser',authMiddleware.isAuthenticated,(req,res,next) => {
+    userController.deleteUser(req,res,next);
+})
+router.get('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
+    userController.createUser(req,res,next);
+})
+router.post('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
+    userController.saveUser(req,res,next);
+})
+router.post('/user/toogleUser',authMiddleware.isAuthenticated,(req,res,next) => {
+    userController.actOrDeactUser(req,res,next);
+})
 module.exports = router

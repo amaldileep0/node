@@ -1,6 +1,7 @@
 var userModel = require('../../common/models/user');
 var validate = require('validate.js');
 var editUserValidationRules = require('../../backend/validations/editUser');
+var createUserValidationRules = require('../../backend/validations/createUser');
 
 module.exports.listUsers = (req, res) => {
     userModel.getUsers((users) => {
@@ -50,3 +51,50 @@ module.exports.updateUser = (req,res,next) => {
 		// callback(form);
 	}
 };
+module.exports.deleteUser = (req,res,next) => {
+    var userId = req.body.id;
+    if(userId) {
+        userModel.deleteUser(userId,(response)=> {
+            if(response) {
+                res.status(200).json({ status: 'success' });
+            } else {
+                res.status(200).json({ status: 'error' });
+            }
+        })
+    } else {
+        res.status(400).end('Unable to fetch required parameter');
+    }
+}
+module.exports.createUser = (req, res, next) => {
+    res.render('user/create-user', {
+        title: 'Create User',
+        layout: 'layouts/layout_master',
+        messages: req.flash()
+      })
+}
+module.exports.saveUser = (req,res,next) => {
+    var errors = null;
+	errors = validate(req.body, createUserValidationRules.createUser());
+	if(errors == null || errors == undefined) {
+        userModel.saveUser(req,(response) => {
+            if(response) {
+                req.flash('success', 'User added successfully');
+                res.redirect('/users');
+            } else {
+                req.flash('error', 'Unbale to add user');
+                res.redirect('/users');
+            }
+        })
+    } else {
+        //to do
+    }
+}
+module.exports.actOrDeactUser = (req,res,next) => {
+    userModel.actOrDeactUser(req,(callback) => {
+        if(callback) {
+            res.status(200).json({ status: 'success' });
+        } else {
+            res.status(200).json({ status: 'error' });
+        }
+    })
+}

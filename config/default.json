@@ -11,5 +11,8 @@
     "pageSize": 50,
     "isProduction": false,
     "socketPort": 8001,
-    "testEnv": true
+    "testEnv": true,
+    "bcrypt": {
+        "saltRound": 10
+    }
 }

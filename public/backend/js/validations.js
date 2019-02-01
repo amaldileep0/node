@@ -22,17 +22,22 @@ function getRules () {
   )
 
   var trimmedRoute = trimRoute(route)
+
 	switch (trimmedRoute) {
     case '/login':
-      page = 'login'
-			formId = '#login-form'
+        page = 'login'
+        formId = '#login-form'
+      break
+      case '/user/createUser':
+        page = 'createUser'
+        formId = '#user-create-form'
       break
 		default:
 			break
   }
 
   url = '/account/getValidationRules/'+page
-
+  
 	if (typeof (page) !== 'undefined') {
     httpGet(url, '', function (response) {
       if (response.error) {
@@ -118,6 +123,9 @@ function showErrorMessages (errors) {
 	switch (trimmedRoute) {
 		case '/login':
       loginErrorMessage(errors);
+      break
+    case '/user/createUser' :
+      createUserErrorMessage(errors)
       break
 		default:
 			break

@@ -1,5 +1,6 @@
 var loginValidation = require('../validations/login');
 var userEditValidation = require('../validations/editUser');
+var userCreateValidation = require('../validations/createUser');
 
 exports.index = (req, res) => {
     res.render('account/dashboard', {
@@ -21,7 +22,9 @@ exports.getRules = (req, res, next) => {
 		validation = loginValidation.login();
 	} else if(page == 'editUser') {
 		validation = userEditValidation.editUser();
-	}
+	} else if(page =='createUser') {
+        validation = userCreateValidation.createUser();
+    }
 	res.json({
 		error: false,
 		data: validation
