@@ -48,7 +48,7 @@ app.use(session({
   expires: 6000000,
 }));
 
-var csrfProtection = module.exports = csrf({ cookie: true })
+
 app.use(express.urlencoded({extended: false})); 
 app.use(cookieParser());
 app.use(csrf({ cookie: true }))

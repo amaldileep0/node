@@ -5,6 +5,10 @@ var passport = require('passport');
 var accountController = require('../controllers/accountController')
 var userController = require('../controllers/userController');
 var authMiddleware = require('../middlewares/authMiddleware');
+//Create a middleware for CSRF token creation and validation.
+var csrf = require('csurf')
+
+var csrfProtection = csrf({ cookie: true })
 
  var isAuthenticated =  (req, res, next) => {
     if (req.user){
@@ -41,7 +45,7 @@ router.get('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.createUser(req,res,next);
 })
 
-router.post('/login', passport.authenticate('local', {failureRedirect: '/failure', successRedirect: '/index' }));
+router.post('/login', csrfProtection, passport.authenticate('local', {failureRedirect: '/failure', successRedirect: '/index' }));
 router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.updateUser(req,res,next);
 })
