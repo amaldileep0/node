@@ -5,6 +5,7 @@
             <div class="inlinerow Mtop20"><!-- row -->   
                 <div class="row">	                                 
                     <div class="col-md-3 col-sm-3 col-xs-6">
+                        <input type="hidden" name="_csrf" value="<%= csrftoken %>">
                         <div class="profile-label">First Name <span class="mandatory">*</span></div>
                         <div class="profile-value"><input type="text" name="first_name" id="first_name" class="form-control"/></div>
                         <div class="inlinerow Mtop5"><div class="alert alertmsg alert-danger" role="alert" id="first_name_error" style="display:none"></div></div>

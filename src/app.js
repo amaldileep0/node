@@ -52,6 +52,13 @@ var csrfProtection = module.exports = csrf({ cookie: true })
 app.use(express.urlencoded({extended: false})); 
 app.use(cookieParser());
 app.use(csrf({ cookie: true }))
+
+app.use(function (req, res, next) {
+  res.cookie('XSRF-TOKEN', req.csrfToken());
+  res.locals.csrftoken = req.csrfToken();
+  next();
+});
+
 var oneDay = 86400000; // in milliseconds
 app.use(express.static(path.join(__dirname, 'public'),{
   maxage: oneDay
