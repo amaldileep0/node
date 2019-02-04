@@ -19,7 +19,6 @@ app.use(isAuthenticated)
 
 router.get('/', isAuthenticated, (req, res, next) => {res.redirect('/login')})
 router.get('/login', isAuthenticated,(req, res, next) => {accountController.login(req, res, next);});
-router.post('/login', passport.authenticate('local', {failureRedirect: '/failure', successRedirect: '/index' }));
 router.get('/logout', (req, res) => {req.logout();res.redirect('/');});
 router.get('/forgotPassword',(req, res, next) => {accountController.forgotPassword(req, res, next)});
 router.get('/account/getValidationRules/:page', (req, res, next) => {accountController.getRules(req, res, next);})
@@ -38,14 +37,16 @@ router.get('/user/getUserDataForUpdate',authMiddleware.isAuthenticated, (req, re
         res.status(400).send('Bad Request');
     }
 });
+router.get('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
+    userController.createUser(req,res,next);
+})
+
+router.post('/login', passport.authenticate('local', {failureRedirect: '/failure', successRedirect: '/index' }));
 router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.updateUser(req,res,next);
 })
 router.post('/user/deleteUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.deleteUser(req,res,next);
-})
-router.get('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
-    userController.createUser(req,res,next);
 })
 router.post('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
     userController.saveUser(req,res,next);

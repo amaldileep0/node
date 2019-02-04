@@ -17,31 +17,28 @@ var expressLayouts = require('express-ejs-layouts');
 var passport = require('passport');
 // Local Authentication middleware
 var LocalStrategy = require('passport-local');
-
+// Require common route file
+var commonRoutes = require('./common/routes');
 const sequelizeClass = require('./sequelize');
+//api routes
+var apiRoutes = require('./api/routes');
+//Create a middleware for CSRF token creation and validation.
+var csrf = require('csurf')
+
+app.use(expressLayouts);
+app.use( express.json() );// to support JSON-encoded bodies
+// create api router
+var api = createApiRouter()
+//used here inorder to ignore api routes..
+app.use(api)
+
+// create api router,mount api before csrf is appended to the app stack
+//app.use(createApiRouter)
 
 //create a middleware for favicon
 //var favicon = require('serve-favicon')
 
-// Require common route file
-var commonRoutes = require('./common/routes');
-
-app.use(cookieParser());
-app.use(expressLayouts);
-app.use(flash());
-app.use( express.json() );       // to support JSON-encoded bodies
-app.use(express.urlencoded({extended: false})); 
-
-var oneDay = 86400000; // in milliseconds
-app.use(express.static(path.join(__dirname, 'public'),{
-  maxage: oneDay
-}));
-
-app.use('/frontend/static', express.static('public/frontend'));
-app.use('/frontend/images', express.static('public/images'));
-app.use('/backend/static', express.static('public/backend'));
-app.use('/backend/images', express.static('public/images'));
-
+// setup route middlewares
 app.use(session({
   cookie: { maxAge: 6000000, secure: false },
   rolling: true,
@@ -50,6 +47,23 @@ app.use(session({
   secret: config.secretKey,
   expires: 6000000,
 }));
+
+var csrfProtection = module.exports = csrf({ cookie: true })
+app.use(express.urlencoded({extended: false})); 
+app.use(cookieParser());
+app.use(csrf({ cookie: true }))
+var oneDay = 86400000; // in milliseconds
+app.use(express.static(path.join(__dirname, 'public'),{
+  maxage: oneDay
+}));
+
+app.use(flash());
+app.use('/frontend/static', express.static('public/frontend'));
+app.use('/frontend/images', express.static('public/images'));
+app.use('/backend/static', express.static('public/backend'));
+app.use('/backend/images', express.static('public/images'));
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -92,15 +106,23 @@ app.use('/', commonRoutes);
 app.use(function(req, res) {
   res.status(404);
   res.render('error/404', {title: '404: File Not Found',layout: 'layouts/layout_errors'});
-  // res.redirect('/400');
 });
-// app.use(function(error, req, res, next) {
-//   if(error.name == 'UnauthorizedError'){
-//     res.status(401).json({
-//       error: "Your session has been expired."
-//     })
-//   } else {
-//     res.render('error/500', {title:'500: Internal Server Error', error: error, layout: 'layouts/layout_errors'});
-//   }
-// });
+app.use(function(error, req, res, next) {
+  if(error.name == 'UnauthorizedError'){
+    res.status(401).json({
+      error: "Your session has been expired."
+    })
+  } else if(error.code == 'EBADCSRFTOKEN'){
+    res.render('error/403', {title:'403: Forbidden', error: error, layout: 'layouts/layout_errors'});
+  } else {
+    res.render('error/500', {title:'500: Internal Server Error', error: error, layout: 'layouts/layout_errors'});
+  }
+});
+
+//this is done here ,because to avoid csrf protection
+function createApiRouter() {
+  var router = new express.Router()
+  router.use('/api', apiRoutes);
+  return router
+}
 module.exports = app;
