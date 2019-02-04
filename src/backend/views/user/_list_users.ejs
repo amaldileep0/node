@@ -99,7 +99,10 @@
 		$.ajax({
 			type: "POST",
 			data: { id: userId, status: checked },
-			url: "/user/toogleUser",
+            url: "/user/toogleUser",
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') // <-- is the csrf token as a header
+            },
 			cache: false,
 		}).done(function(res){
             if (typeof (res) !== 'undefined' && res.status === 'success') {

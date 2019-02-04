@@ -35,7 +35,8 @@ $(".delete-user").on("click",function(){
                 var actioning = modalLoading('Please wait...','While we\'r deleting the user.');
                 $.post(ajaxUrl, 
                     {
-                        id: userId
+                        id: userId,
+                        _csrf : $('meta[name="csrf-token"]').attr('content')
                     },function(res) {
                         actioning.hide()
                         if (typeof (res) !== 'undefined' && res.status === 'success') {

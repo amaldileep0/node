@@ -46,16 +46,16 @@ router.get('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
 })
 
 router.post('/login', csrfProtection, passport.authenticate('local', {failureRedirect: '/failure', successRedirect: '/index' }));
-router.post('/user/editUser',authMiddleware.isAuthenticated,(req,res,next) => {
+router.post('/user/editUser', csrfProtection, authMiddleware.isAuthenticated,(req,res,next) => {
     userController.updateUser(req,res,next);
 })
-router.post('/user/deleteUser',authMiddleware.isAuthenticated,(req,res,next) => {
+router.post('/user/deleteUser', csrfProtection, authMiddleware.isAuthenticated,(req,res,next) => {
     userController.deleteUser(req,res,next);
 })
-router.post('/user/createUser',authMiddleware.isAuthenticated,(req,res,next) => {
+router.post('/user/createUser', csrfProtection, authMiddleware.isAuthenticated,(req,res,next) => {
     userController.saveUser(req,res,next);
 })
-router.post('/user/toogleUser',authMiddleware.isAuthenticated,(req,res,next) => {
+router.post('/user/toogleUser', csrfProtection, authMiddleware.isAuthenticated,(req,res,next) => {
     userController.actOrDeactUser(req,res,next);
 })
 module.exports = router
